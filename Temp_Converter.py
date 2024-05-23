@@ -1,8 +1,22 @@
-while True:
-    try:
-        celsius = float(input("Enter temp in Celsius: "))
-        print(f"{celsius}C is {(9/5)*celsius+32}F")
-        fahrenheit = float(input("Enter temp in Fahrenheit: "))
-        print(f"{fahrenheit}F is {(fahrenheit-32)*(5/9)}F")
-    except:
-        print("Invalid input")
+from tkinter import *
+
+root = Tk()
+
+dispC = DoubleVar()
+dispF = DoubleVar()
+
+def setC(*args):
+    celsius = dispC.get()
+    dispF.set(round((9/5)*celsius+32, 2))
+
+def setF(*args):
+    fahrenheit = dispF.get()
+    dispC.set(round((fahrenheit-32)*(5/9), 2))
+
+dispC.trace_add("write", setC)
+dispF.trace_add("write", setF)
+
+Entry(root, textvariable=dispC).pack()
+Entry(root, textvariable=dispF).pack()
+
+root.mainloop()
