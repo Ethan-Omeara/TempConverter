@@ -1,22 +1,44 @@
 from tkinter import *
 
 root = Tk()
+root.title("Temperature Converter")
 
-dispC = DoubleVar()
-dispF = DoubleVar()
+dispC = StringVar(name="C")
+dispF = StringVar(name="F")
 
-def setC(*args):
-    celsius = dispC.get()
-    dispF.set(round((9/5)*celsius+32, 2))
+ignoreCommand = False
+def updateTemp(var, index, mode):
+    global ignoreCommand
+    if ignoreCommand:
+        ignoreCommand = False
+        return
+    else:
+        ignoreCommand = True
+    
+    if var == "C":
+        try:
+            celsius = float(dispC.get())
+            dispF.set(round((9/5)*celsius+32, 2))
+        except:
+            print("Invalid Celsius, setting blank")
+            dispF.set("")
+    elif var == "F":
+        try:
+            fahrenheit = float(dispF.get())
+            dispC.set(round((fahrenheit-32)*(5/9), 2))
+        except:
+            print("Invalid Fahrenheit, setting blank")
+            dispC.set("")
+    print(var)
 
-def setF(*args):
-    fahrenheit = dispF.get()
-    dispC.set(round((fahrenheit-32)*(5/9), 2))
 
-dispC.trace_add("write", setC)
-dispF.trace_add("write", setF)
+dispC.trace_add("write", updateTemp)
+dispF.trace_add("write", updateTemp)
 
-Entry(root, textvariable=dispC).pack()
-Entry(root, textvariable=dispF).pack()
+Label(root, text="Celsius:", width=20).grid(row=0, column=0)
+Label(root, text="Fahrenheit:", width=20).grid(row=0, column=1)
+
+Entry(root, textvariable=dispC).grid(row=1, column=0)
+Entry(root, textvariable=dispF).grid(row=1, column=1)
 
 root.mainloop()
