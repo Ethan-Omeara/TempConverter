@@ -42,6 +42,15 @@ def save_temp():
     with open(db, 'w') as file:
         file.write(json.dumps(temp_history))
 
+def show_history():
+    window = Toplevel(root)
+    window.title("History")
+    Label(window, text="Celsius", width=20).grid(row=0, column=0)
+    Label(window, text="Fahrenheit", width=20).grid(row=0, column=1)
+    for i, temp in enumerate(temp_history):
+        Label(window, text=temp[0], width=20).grid(row=i+1, column=0)
+        Label(window, text=temp[1], width=20).grid(row=i+1, column=1)
+
 dispC.trace_add("write", updateTemp)
 dispF.trace_add("write", updateTemp)
 
@@ -51,6 +60,7 @@ Label(root, text="Fahrenheit:", width=20).grid(row=0, column=1)
 Entry(root, textvariable=dispC).grid(row=1, column=0)
 Entry(root, textvariable=dispF).grid(row=1, column=1)
 
-Button(root, text="Save", width=10, command=save_temp).grid(row=2, column=0)
+Button(root, text="Spara", width=10, command=save_temp).grid(row=2, column=0)
+Button(root, text="Historia", width=10, command=show_history).grid(row=2, column=1)
 
 root.mainloop()
