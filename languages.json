@@ -1,0 +1,11 @@
+{
+    "English": {
+        "title": "Temperature Converter",
+        "celsius": "Celsius",
+        "fahrenheit": "Fahrenheit",
+        "save": "Save",
+        "history": "History",
+        "help": "Help",
+        "help_label": "Type in the temperature.\nPress 'Save' to save value.\nPress 'History' to view history."
+    }
+}
